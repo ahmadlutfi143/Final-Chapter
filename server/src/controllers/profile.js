@@ -26,6 +26,7 @@ exports.getProfile = async (req, res) => {
         profileData = {
           ...profileData,
           image: process.env.PATH_FILE + profileData.image,
+          attach: process.env.PATH_FILE + profileData.attach,
         };
 
         res.send({

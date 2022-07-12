@@ -4,7 +4,6 @@ import NavbarUser from "./NavbarUser"
 function LayoutUser () {
     return (
         <div>
-            <NavbarUser />
             <div>
               <Outlet />
             </div>

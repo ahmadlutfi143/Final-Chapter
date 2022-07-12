@@ -13,8 +13,12 @@ exports.addProduct = async (req, res) => {
       name: req.body.name,
       desc: req.body.desc,
       price: req.body.price,
-      image: req.file.filename,
-      qty: req.body.qty,
+      image: req.files['image'][0].filename,
+      attach: req.files['attach'][0].filename,
+      pages: req.body.pages,
+      isbn: req.body.isbn,
+      author: req.body.author,
+      publication: req.body.publication,
       idUser: req.user.id,
     };
 
@@ -64,6 +68,7 @@ exports.addProduct = async (req, res) => {
       data: {
         ...productData,
         image: process.env.PATH_FILE + productData.image,
+        attach: process.env.PATH_FILE + productData.attach,
       },
     });
   } catch (error) {
@@ -101,12 +106,13 @@ exports.getAllProducts = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ["createdAt", "updatedAt", "idUser"],
+        exclude: ["updatedAt", "idUser"],
       },
     });
 
     data = data.map((item) => {
-      item.image = 'http://localhost:5000/uploads/' + item.image
+      item.image = 'http://localhost:5000/uploads/' + item.image,
+      item.attach = 'http://localhost:5000/uploads/' + item.attach
 
       return item
     })
@@ -154,7 +160,7 @@ exports.getProduct = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ['createdAt', 'updatedAt', 'idUser'],
+        exclude: ['updatedAt', 'idUser'],
       },
     });
 
@@ -163,6 +169,7 @@ exports.getProduct = async (req, res) => {
     data = {
       ...data,
       image: process.env.PATH_FILE + data.image,
+      attach: process.env.PATH_FILE + data.attach,
     };
 
     res.send({
@@ -190,7 +197,10 @@ exports.updateProduct = async (req, res) => {
       desc: req?.body?.desc,
       price: req?.body?.price,
       image: req?.file?.filename,
-      qty: req?.body?.qty,
+      pages: req?.body?.pages,
+      isbn: req?.body?.isbn,
+      author: req?.body?.author,
+      publication: req?.body?.publication,
       idUser: req?.user?.id,
     };
 

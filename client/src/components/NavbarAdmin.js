@@ -22,7 +22,7 @@ function NavbarAdmin() {
   return (
     <Navbar bg="black" expand="lg">
       <Container>
-        <Navbar.Brand as={Link} to="/admin/complain"><img src={DumbMerch} style={{ maxWidth: '50px' }} alt="" /></Navbar.Brand>
+        <Navbar.Brand as={Link} to="/admin"><img src={DumbMerch} style={{ maxWidth: '50px' }} alt="" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav >

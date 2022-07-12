@@ -4,9 +4,11 @@ import { useContext, useEffect } from 'react';
 import {Routes, Route, useNavigate} from 'react-router-dom'
 import { UserContext } from './context/userContext';
 
+import Homepage from './pages/Homepage';
 import Auth from './pages/Auth';
 import Product from './pages/Product'
 import Profile from './pages/Profile'
+import Cart from './pages/Cart';
 import DetailProduct from './pages/DetailProduct'
 import LayoutUser from './components/LayoutUser'
 import LayoutAdmin from './components/LayoutAdmin'
@@ -35,7 +37,7 @@ function App() {
       setAuthToken(localStorage.token);
     }
     if (state.isLogin === false) {
-      navigate('/auth');
+      navigate('/homepage');
     } else {
       if (state.user.status === 'Admin') {
         navigate('/admin');
@@ -75,16 +77,17 @@ function App() {
 
   return (
         <Routes>
-          <Route path="/auth" element={<Auth />} />
+          <Route path="/homepage" element={<Homepage />} />
           <Route path="/user" element={<LayoutUser />}>
             <Route index element={<Product />}></Route>
             <Route path="/user/profile" element={<Profile />}></Route>
+            <Route path="/user/product/cart/:id" element={<Cart />}></Route>
             <Route path="/user/product/detail/:id" element={<DetailProduct />}></Route>
             <Route path="/user/profile/edit" element={<EditProfile />}></Route>
             <Route path="/user/complain" element={<ComplainUser />}></Route>
           </Route>
           <Route path="/admin" element={<LayoutAdmin />}>
-            <Route index element={<ListCategory />}></Route>
+            <Route index element={<ListProduct />}></Route>
             <Route path="/admin/product" element={<ListProduct />}></Route>
             <Route path="/admin/add-category" element={<AddCategoryAdmin />}></Route>
             <Route path="/admin/edit-category/:id" element={<EditCategory />}></Route>

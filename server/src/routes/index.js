@@ -20,10 +20,10 @@ router.post('/login', login)
 router.get('/check-auth', auth, checkAuth);
 
 // Product
-router.post('/product', auth, uploadFile('image'), addProduct)
+router.post('/product', auth, uploadFile.fields([{name:"image", maxCount:1},{name:"attach", maxCount:1},]), addProduct)
 router.get('/products', auth, getAllProducts)
 router.get('/product/:id', auth, getProduct)
-router.patch("/product/:id", auth, uploadFile("image"), updateProduct);
+router.patch("/product/:id", auth, uploadFile.fields([{name:"image", maxCount:1},{name:"attach", maxCount:1},]), updateProduct);
 router.delete('/product/:id', auth, deleteProduct)
 
 // Category
@@ -41,7 +41,7 @@ router.get('/transactions', auth, getAllTransactions)
 router.post("/notification", notification);
 
 // Profile
-router.patch('/profile', auth, uploadFile('image'), updateProfile)
+router.patch('/profile', auth, uploadFile.single("image"), updateProfile)
 router.get('/profile', auth, getProfile)
 
 // User

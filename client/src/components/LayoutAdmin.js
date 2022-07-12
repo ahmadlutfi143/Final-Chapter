@@ -4,7 +4,6 @@ import NavbarAdmin from "./NavbarAdmin"
 function LayoutUser () {
     return (
         <div>
-            <NavbarAdmin />
             <div>
               <Outlet />
             </div>

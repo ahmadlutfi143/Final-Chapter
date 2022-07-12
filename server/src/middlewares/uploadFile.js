@@ -1,63 +1,22 @@
+// import package here
 const multer = require('multer');
 
-exports.uploadFile = (imageFile) => {
+// Destination and rename
+const storageEngine = multer.diskStorage({
+  destination: (req, file, cb) => { cb(null, 'uploads') },
+  filename: (req, file, cb) => { cb (null, Date.now() + '-' + file.originalname.replace(/\s/g, "")); }, })
 
-  const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-      cb(null, 'uploads')
-    },
-    filename: function(req, file, cb){
-      cb(null, Date.now() + '-'+ file.originalname.replace(/\s/g,""));
-    }
-  })
-
-  const fileFilter = function (req, file, cb){
-    if(file.fieldname === imageFile){
-      if(!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/)){
-        req.fileValidationError = {
-          message: 'Only image files are allowed!'
-        }
-        return cb(new Error("Only image files are allowed!"), false)
-      }
-    }
+// Filter file type
+const productFilter = (req, file, cb) => {
+  if (
+    file.mimetype == "application/pdf" ||
+    file.mimetype == "image/png" ||
+    file.mimetype == "image/jpeg" ||
+    file.mimetype == "image/jpg") {
     cb(null, true)
+  } else {
+    cb(null, false)
   }
+}
 
-  const size = 10;
-  const maxSize = size * 1000 * 1000;
-  const limits = {
-    fileSize: maxSize
-  }
-
- const upload = multer({
-    storage,
-    fileFilter,
-    limits
-  }).single(imageFile)
-
-  return (req, res, next) => {
-    upload(req, res, function (err) {
-
-      if(req.fileValidationError){
-        return res.send(req.fileValidationError)
-      }
-      
-      // // If file empty
-      // if(!req.file && !err){
-      //   return res.send({
-      //     message: 'Please select files to upload!'
-      //   })
-      // }
-
-      if(err){
-        if(err.code == "LIMIT_FILE_SIZE"){
-          return res.send({
-            message: 'Max file sized 10Mb'
-          })
-        }
-        return res.send(err)
-      }
-      return next();
-    })
-  }
-};
+exports.uploadFile = multer({ storage: storageEngine, fileFilter: productFilter })

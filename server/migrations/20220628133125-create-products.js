@@ -20,8 +20,20 @@ module.exports = {
       image: {
         type: Sequelize.STRING
       },
-      qty: {
-        type: Sequelize.INTEGER
+      attach: {
+        type: Sequelize.STRING
+      },
+      pages: {
+        type: Sequelize.STRING
+      },
+      isbn: {
+        type: Sequelize.STRING
+      },
+      author: {
+        type: Sequelize.STRING
+      },
+      publication: {
+        type: Sequelize.DATE
       },
       idUser: {
         type: Sequelize.INTEGER,

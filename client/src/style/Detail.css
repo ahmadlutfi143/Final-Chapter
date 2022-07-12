@@ -1,15 +1,14 @@
 .border-detail {
-    height: 90vh;
-    padding-top: 5%;
-    padding-left: 5%;
-    padding-right: 5%;
-    background-color: #0B0B0B;
+    height: auto;
+    padding-left: 17%;
+    padding-right: 17%;
+    background-color: #E5E5E5;
+}
+.navigasi {
+    margin-bottom: 5%;
 }
 .description {
     text-align: justify;
-}
-.price {
-    text-align: right;
 }
 .fitur {
     list-style-type: none;

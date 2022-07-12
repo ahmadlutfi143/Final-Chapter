@@ -8,9 +8,9 @@ export default function Contact({ dataContact, clickContact, contact }) {
       {dataContact.length > 0 && (
         <>
           {dataContact.map((item) => (
-            <div
+            <div style={{ color: '#000000', backgroundColor: '#C4C4C4' }}
               key={item.id}
-              className={`contact mt-3 p-2 ${
+              className={`contact mt-1 p-2 ${
                 contact?.id === item?.id && "contact-active"
               }`}
               onClick={() => {
@@ -24,9 +24,7 @@ export default function Contact({ dataContact, clickContact, contact }) {
               />
               <div className="ps-1 text-contact d-flex flex-column justify-content-around">
                 <p className="mb-0">{item.name}</p>
-                <p className="text-contact-chat mt-1 mb-0">
-                  {item.message}
-                </p>
+                
               </div>
             </div>
           ))}
